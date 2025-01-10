@@ -56,6 +56,11 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
 
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+
       globals: {
         ...globals.browser,
         ...globals.node, // SSR, Electron, config files
