@@ -3,9 +3,9 @@
       <q-card class="grammar-card" flat bordered>
         <q-card-section class="q-pt-xs">
           <div class="text-overline">Overline</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">{{ title }}</div>
+          <div class="text-h5 q-mt-sm q-mb-xs">{{ currentCard.title }}</div>
           <div class="q-pa-md">
-                {{ description }}
+                {{ currentCard.description }}
             </div>
           </q-card-section>
   
@@ -13,17 +13,17 @@
 
         <q-card-section>
             <ul>
-                <li v-for="example in examples" :key="example.example">
+                <li v-for="example in currentCard.examples" :key="example.example">
                     <strong>{{ example.example }}</strong> - {{ example.translation }}
                 </li>
             </ul>
         </q-card-section>
   
         <q-card-actions class="row justify-evenly">
-          <q-btn flat>
+          <q-btn flat @click="onPreviousClick">
             Previous
           </q-btn>
-          <q-btn flat color="primary">
+          <q-btn flat color="primary" @click="onNextClick">
             Next
           </q-btn>
         </q-card-actions>
@@ -33,16 +33,14 @@
 </template>
 
 <script setup lang="ts">
+// TOOD: Fix types
+import { GrammarCard } from 'src/stores/grammar';
+
 
 interface Props {
-    title: string;
-    description: string;
-    examples: Example[];
-};
-
-type Example = {
-    example: string;
-    translation: string;
+    onNextClick: () => void;
+    onPreviousClick: () => void;
+    currentCard: GrammarCard;
 };
 
 // Define props without defaults to make them required
